@@ -14,7 +14,7 @@ class CustomException(Exception):
         error_message=f"Error occured in script: [{file_name}] at try block line number: [{try_block_line_number}]\
             exception block line number [{exception_block_line_number}]error message: [{error_message}]"
         return error_message
-    #what is str and repro 
+     
     def __str__(self):
         return self.error_message  
     

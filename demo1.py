@@ -8,5 +8,5 @@ try:
     print(a)
 
 except Exception as e:
+    logging.info(e)
     raise CustomException(e,sys)
-
