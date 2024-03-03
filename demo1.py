@@ -8,5 +8,6 @@ try:
     print(a)
 
 except Exception as e:
-    logging.info(e)
+    # logging.info(e)
+    logging.info(CustomException(e,sys))
     raise CustomException(e,sys)
