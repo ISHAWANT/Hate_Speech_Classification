@@ -21,9 +21,16 @@ class DataIngestionArtifacts:
         self.imbalance_data_file_path = imbalance_data_file_path
         self.raw_data_file_path = raw_data_file_path
 
-# Data Transformation Related Artifact
+# Data Transformation 
 @dataclass
 class DataTransformationArtifacts:
     transformed_data_path: str
 
+# Model Training 
+
+@dataclass
+class ModelTrainerArtifacts: 
+    trained_model_path:str
+    x_test_path: list
+    y_test_path: list
 
