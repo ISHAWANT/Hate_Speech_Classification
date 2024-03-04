@@ -63,3 +63,11 @@ class ModelTrainerConfig:
         self.EPOCH = EPOCH
         self.BATCH_SIZE = BATCH_SIZE
         self.VALIDATION_SPLIT = VALIDATION_SPLIT
+
+@dataclass
+class ModelEvaluationConfig: 
+    def __init__(self):
+        self.MODEL_EVALUATION_MODEL_DIR: str = os.path.join(os.getcwd(),ARTIFACTS_DIR, MODEL_EVALUATION_ARTIFACTS_DIR)
+        self.BEST_MODEL_DIR_PATH: str = os.path.join(self.MODEL_EVALUATION_MODEL_DIR,BEST_MODEL_DIR)
+        self.BUCKET_NAME = BUCKET_NAME 
+        self.MODEL_NAME = MODEL_NAME 

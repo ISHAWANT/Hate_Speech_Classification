@@ -34,3 +34,8 @@ class ModelTrainerArtifacts:
     x_test_path: list
     y_test_path: list
 
+# Model evaluation artifacts
+@dataclass
+class ModelEvaluationArtifacts:
+    is_model_accepted: bool  
+
