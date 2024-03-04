@@ -10,6 +10,7 @@ from hate.entity.artifact_entity import DataIngestionArtifacts,DataTransformatio
 class TrainPipeline:
     def __init__(self):
         self.data_ingestion_config = DataIngestionConfig()
+        self.data_transformation_config = DataTransformationConfig()
 
     def start_data_ingestion(self) -> DataIngestionArtifacts:
         logging.info("Entered the start_data_ingestion method of TrainPipeline class")
