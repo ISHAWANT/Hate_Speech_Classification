@@ -43,3 +43,15 @@ RANDOM_STATE = 42
 EPOCH = 10
 BATCH_SIZE = 128
 VALIDATION_SPLIT = 0.2
+
+# Model  Evaluation constants
+MODEL_EVALUATION_ARTIFACTS_DIR = 'ModelEvaluationArtifacts'
+BEST_MODEL_DIR = "best_Model"
+MODEL_EVALUATION_FILE_NAME = 'loss.csv'
+
+# Model Architecture constants
+MAX_WORDS = 50000
+MAX_LEN = 300
+LOSS = 'binary_crossentropy'
+METRICS = ['accuracy']
+ACTIVATION = 'sigmoid'
