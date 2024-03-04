@@ -20,3 +20,8 @@ class DataIngestionArtifacts:
         """
         self.imbalance_data_file_path = imbalance_data_file_path
         self.raw_data_file_path = raw_data_file_path
+
+# Data Transformation Related Artifact
+@dataclass
+class DataTransformationArtifacts:
+    transformed_data_path: str
