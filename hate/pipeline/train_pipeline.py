@@ -4,15 +4,17 @@ from hate.exception import CustomException
 from hate.components.data_ingestion import DataIngestion
 from hate.components.data_transformation import DataTransformation
 from hate.components.model_trainer import ModelTrainer
+from hate.components.model_evaluation import ModelEvaluation
 
-from hate.entity.config_entity import DataIngestionConfig,DataTransformationConfig,ModelTrainerConfig
-from hate.entity.artifact_entity import DataIngestionArtifacts,DataTransformationArtifacts,ModelTrainerArtifacts
+from hate.entity.config_entity import DataIngestionConfig,DataTransformationConfig,ModelTrainerConfig,ModelEvaluationConfig
+from hate.entity.artifact_entity import DataIngestionArtifacts,DataTransformationArtifacts,ModelTrainerArtifacts,ModelEvaluationArtifacts
 
 class TrainPipeline:
     def __init__(self):
         self.data_ingestion_config = DataIngestionConfig()
         self.data_transformation_config = DataTransformationConfig()
         self.model_trainer_config = ModelTrainerConfig()
+        self.model_evaluation_config =ModelEvaluationConfig()
 
     def start_data_ingestion(self) -> DataIngestionArtifacts:
         logging.info("Entered the start_data_ingestion method of TrainPipeline class")
@@ -59,6 +61,20 @@ class TrainPipeline:
         except Exception as e:
             raise CustomException(e, sys)
         
+    def start_model_evaluation(self, model_trainer_artifacts: ModelTrainerArtifacts, data_transformation_artifacts: DataTransformationArtifacts) -> ModelEvaluationArtifacts:
+        logging.info("Entered the start_model_evaluation method of TrainPipeline class")
+        try:
+            model_evaluation = ModelEvaluation(data_transformation_artifacts = data_transformation_artifacts,
+                                                model_evaluation_config=self.model_evaluation_config,
+                                                model_trainer_artifacts=model_trainer_artifacts)
+
+            model_evaluation_artifacts = model_evaluation.initiate_model_evaluation()
+            logging.info("Exited the start_model_evaluation method of TrainPipeline class")
+            return model_evaluation_artifacts
+
+        except Exception as e:
+            raise CustomException(e, sys) from e
+        
     
         
     def run_pipeline(self) -> None:
@@ -73,6 +89,13 @@ class TrainPipeline:
             model_trainer_artifacts = self.start_model_trainer(
                 data_transformation_artifacts=data_transformation_artifacts
             )
+
+            model_evaluation_artifacts = self.start_model_evaluation(model_trainer_artifacts=model_trainer_artifacts,
+                                                                    data_transformation_artifacts=data_transformation_artifacts
+            ) 
+
+            if not model_evaluation_artifacts.is_model_accepted:
+                raise Exception("Trained model is not better than the best model")
 
             logging.info("Exited the run_pipeline method of TrainPipeline class")
 
